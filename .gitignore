@@ -1,0 +1,21 @@
+# THIS REPOSITORY IS PUBLIC. Anything committed here is visible to the world,
+# permanently, including in history after a later deletion.
+#
+# It sits one directory below the private bar book. `bar-book.html` names a
+# real person seventeen times, carries her ratings and palate profile, and
+# lists what every bottle cost. `people.json` is notes on guests. None of that
+# may ever appear here, and the cheapest way to guarantee it is to ignore
+# everything and name the exceptions.
+#
+# The parent directory is outside this repo, so git cannot reach it. This file
+# is the second lock, for the day someone copies a file down here to "just
+# check something".
+
+# Deny by default.
+*
+
+# Allow, explicitly.
+!.gitignore
+!index.html
+!CNAME
+!README.md
