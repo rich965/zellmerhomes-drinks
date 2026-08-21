@@ -1,20 +1,16 @@
-# THIS REPOSITORY IS PUBLIC. Anything committed here is visible to the world,
-# permanently, including in history after a later deletion.
+# Deny by default. This repo is public; nothing enters it by accident.
 #
-# It sits one directory below the private bar book. `bar-book.html` names a
-# real person seventeen times, carries her ratings and palate profile, and
-# lists what every bottle cost. `people.json` is notes on guests. None of that
-# may ever appear here, and the cheapest way to guarantee it is to ignore
-# everything and name the exceptions.
+# The bar book lives in the parent directory and must never appear here:
+# it names a real person alongside her drink ratings and palate profile,
+# and carries retail prices for every bottle in the house. A public GitHub
+# repo is browsable file-by-file, so "noindex" would not protect any of it.
 #
-# The parent directory is outside this repo, so git cannot reach it. This file
-# is the second lock, for the day someone copies a file down here to "just
-# check something".
+# data/ (ratings.json, people.json) is more sensitive still — raw personal
+# data rather than rendered prose. It is not in this directory at all, and
+# that structural separation is the real protection. This file is the second lock.
 
-# Deny by default.
 *
 
-# Allow, explicitly.
 !.gitignore
 !index.html
 !CNAME

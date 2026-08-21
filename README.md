@@ -1,35 +1,37 @@
 # drinks.zellmerhomes.com
 
-The guest menu. One file, no dependencies, no external requests, no analytics.
-This is what the QR code points at.
+The guest cocktail menu. Published with GitHub Pages from the repo root.
 
-## What is here, and what is deliberately not
+## What this repo is
 
-`index.html` is generated — it is a copy of `../menu.html`, which
-`../build_menu.py` builds from the private `../bar-book.html`. Do not hand-edit
-it; the next build overwrites it.
+A single generated page. `index.html` is written by `build.py`, which lives one
+directory up and is **not** part of this repo. Do not edit `index.html` by hand —
+the next build overwrites it.
 
-The bar book itself is **not in this repository and must not be**. It names a
-real person seventeen times, records her ratings and palate, and lists bottle
-prices. GitHub Pages on the free tier requires a public repository, and a
-public repository is browsable file by file regardless of any `noindex` tag —
-so "unlisted" is not a thing that exists here. The `.gitignore` denies
-everything by default for that reason.
+To change the menu, edit `data/drinks.json` in the parent project, run
+`python3 build.py`, then commit whatever `index.html` becomes.
 
-## Updating the menu
+## What this repo is not
 
-From the parent directory, after editing `bar-book.html` or `ratings.json`:
+It is not the bar book. The book holds bottle prices, tasting notes, drink ratings
+by name, and written palate profiles for real people. It stays in the parent
+directory, outside this repo, permanently.
 
-    python3 apply_ratings.py
-    python3 build_menu.py
-    cp menu.html site/index.html
-    cd site && git add -A && git commit -m "menu" && git push
+This repo is public — GitHub Pages requires that on the free tier — and a public
+repo is browsable file-by-file regardless of any `noindex` meta tag. There is no
+"unlisted" here. Hence the deny-by-default `.gitignore`: four files are allowed,
+everything else is refused.
 
-Pages redeploys in about a minute.
+`build.py` also runs a `guard()` before writing, which aborts if a name, pronoun,
+score or price reaches the rendered page. Three locks: directory separation,
+`.gitignore`, and the guard.
 
-## The QR code is permanent
+## Custom domain
 
-A printed QR code cannot be recalled. It points at `drinks.zellmerhomes.com`,
-a domain Rich controls, rather than at a hosting provider's URL — so if the
-host ever changes, every card already printed keeps working. Do not reprint
-codes against any other hostname.
+`CNAME` tells GitHub Pages the domain. That alone is not enough — the subdomain
+also needs a DNS `CNAME` record at the registrar pointing `drinks` at
+`<username>.github.io`. Without it the domain will not resolve, and the symptom
+is a GitHub 404 rather than a DNS error, which is confusing.
+
+Once the QR code is printed, this URL is permanent. Changing it later means
+reprinting every code.
