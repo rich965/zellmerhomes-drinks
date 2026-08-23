@@ -253,8 +253,12 @@ h2{font-family:Georgia,serif;font-size:13px;font-weight:400;letter-spacing:.2em;
     var el = location.hash && document.getElementById(location.hash.slice(1));
     if (!el) return;
     var pane = el.closest('.pane');
-    if (pane) { sub(pane.id); top('p-bottles'); }
-    else if (document.getElementById('p-drinks').contains(el)) { top('p-drinks'); }
+    if (pane) { sub(pane.id); top('p-bottles'); el.scrollIntoView(); return; }
+    // the hash may name a whole tab, not a section inside one
+    if (A('.tab').some(function (t) { return t.getAttribute('aria-controls') === el.id; })) {
+      top(el.id); window.scrollTo(0, 0); return;
+    }
+    if (document.getElementById('p-drinks').contains(el)) { top('p-drinks'); }
     el.scrollIntoView();
   }
   reveal();
